@@ -13,24 +13,11 @@
         zoom: 16.5,
         minZoom: 15.5,
         maxZoom: 19,
-        pitch: 20,        // ← reduzido de 45 para 20 (prédios colam no chão)
+        pitch: 20,
         bearing: -20,
         maxBounds: bounds
     });
 
-    map.on('load', () => {
-
-        // Força exibição dos nomes das ruas do seu estilo personalizado
-        map.setLayoutProperty('road-label', 'visibility', 'visible');
-        map.setLayoutProperty('road-label', 'text-field', ['get', 'name']);
-
-        // Estiliza os labels das ruas
-        map.setPaintProperty('road-label', 'text-color', '#333333');
-        map.setPaintProperty('road-label', 'text-halo-color', '#ffffff');
-        map.setPaintProperty('road-label', 'text-halo-width', 2);
-    });
-
-    // Popup ao clicar nos prédios
     map.on('click', 'mapa UFJ', (e) => {
         const nomePredio = e.features[0].properties.name || "Prédio da UFJ";
         new mapboxgl.Popup()
@@ -39,7 +26,6 @@
             .addTo(map);
     });
 
-    // Cursor mãozinha ao passar nos prédios
     const layersInterativas = ['mapa UFJ'];
     layersInterativas.forEach(layer => {
         map.on('mouseenter', layer, () => {
